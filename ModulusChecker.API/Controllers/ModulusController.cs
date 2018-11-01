@@ -70,17 +70,26 @@ namespace ModulusChecker.API.Controllers
 
             resultModel.RequiresSecondCheck = accountDetails.RequiresSecondCheck();
 
+
             if (accountDetails.RequiresSecondCheck())
             {
                 PerformSecondCheck(accountDetails);
-                resultModel.PassedSecondCheck = accountDetails.PassedSecondCheck;        
+                resultModel.PassedSecondCheck = accountDetails.PassedSecondCheck;
+
+                //pass first check, failed second = fail
+                if (resultModel.PassedFirstCheck && !resultModel.PassedSecondCheck)
+                {
+                    resultModel.PassedValidation = false;
+                }
+
+                //fail first check, pass second = pass
+                if (!resultModel.PassedFirstCheck && resultModel.PassedSecondCheck)
+                {
+                    resultModel.PassedValidation = true;
+                }
             }
 
-            if (!resultModel.PassedFirstCheck || (resultModel.RequiresSecondCheck && !resultModel.PassedSecondCheck))
-            {
-                resultModel.PassedValidation = false;
-            }
-
+            //additional reporting on exceptions
             var handledExceptions = new List<int> {4, 7};
             if (accountDetails.FirstException > 0 && !handledExceptions.Contains(accountDetails.FirstException))
             {
