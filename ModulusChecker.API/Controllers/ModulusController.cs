@@ -24,6 +24,12 @@ namespace ModulusChecker.API.Controllers
             _weightMappingImporter = weightMappingImporter;
             _modulusChecker = modulusChecker;
         }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Content("<html><h1>Service Running</h1></html>", "text/html");
+        }
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody] BankAccountModel bankAccount)
