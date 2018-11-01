@@ -1,6 +1,6 @@
 # Modulus Checker
 
-A C# Web API to validate bank account numbers against sort codes.
+A C# Web API to validate bank account numbers against sort codes. (Built on .Net Core 2.1).
 
 Currently handles exceptions 4 and 7, other identified exceptions are referenced in the `ResultMessage` property of the output model.
 
